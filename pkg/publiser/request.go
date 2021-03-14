@@ -13,7 +13,7 @@ import (
 
 func request(c *models.Config) (string, error) {
 
-	l := lead(c.Publisher.Hash)
+	l := lead(c)
 
 	bytesRepresentation, err := json.Marshal(l)
 	if err != nil {
@@ -43,7 +43,7 @@ func request(c *models.Config) (string, error) {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	// fmt.Println(r)
+	fmt.Println("RESPONSE", r)
 	var data models.DataResponse
 	if r.Success {
 
@@ -52,6 +52,13 @@ func request(c *models.Config) (string, error) {
 			fmt.Println(err.Error())
 		}
 		// fmt.Println(data.Data.LeadUUID)
+	} else {
+		var errors models.ErrorResponse
+		err = json.Unmarshal(body, &errors)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		fmt.Println(errors)
 	}
 	// str := string(body)
 	str := data.Data.LeadUUID
