@@ -3,6 +3,7 @@ package models
 // Config ...
 type Config struct {
 	Main       Main       `json:"main"`
+	Redirect   Redirect   `json:"redirect"`
 	Publisher  Publisher  `json:"publisher"`
 	Advertiser Advertiser `json:"advertiser"`
 }
@@ -25,4 +26,12 @@ type Publisher struct {
 // Advertiser ...
 type Advertiser struct {
 	API_Key string `json:"api_key" validate:"required"`
+}
+
+// Redirect ...
+type Redirect struct {
+	Run             bool   `json:"run"`
+	Redirect_Domain string `json:"redirect_domain" validate:"required"`
+	UUID            string `json:"uuid" validate:"required,uuid"`
+	Sum             int    `json:"sum" validate:"required"`
 }

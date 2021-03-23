@@ -9,6 +9,7 @@ import (
 	"github.com/Kushkaftar/leadCannon/pkg/advert/approved"
 	"github.com/Kushkaftar/leadCannon/pkg/advert/redject"
 	"github.com/Kushkaftar/leadCannon/pkg/advert/trash"
+	"github.com/Kushkaftar/leadCannon/pkg/redirect"
 )
 
 func Run(c *models.Config) {
@@ -39,5 +40,9 @@ func Run(c *models.Config) {
 		case "redject":
 			redject.Redject(r, c)
 		}
+	}
+
+	if c.Redirect.Run {
+		redirect.Redirect(c)
 	}
 }
