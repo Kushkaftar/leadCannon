@@ -18,4 +18,5 @@ type Lead struct {
 	SubID2      string `json:"sub_id2"`
 	SubID3      string `json:"sub_id3"`
 	Referer     string `json:"referer"`
+	Comment     string `json:"comment"`
 }
