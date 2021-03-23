@@ -10,6 +10,7 @@ type Config struct {
 
 // Main ...
 type Main struct {
+	Run        bool   `json:"run"`
 	URL        string `json:"url" validate:"required,url"`
 	Sum        int    `json:"sum" validate:"required"`
 	Label      bool   `json:"label" validate:"required"`

@@ -15,42 +15,48 @@ import (
 func Run(c *models.Config) {
 
 	fmt.Println(c)
-	for i := 0; i < c.Main.Sum; i++ {
 
-		r, err := request(c)
-		if err != nil {
-			log.Fatal(err)
-		}
-		// fmt.Println(r)
-		// false, rand, trash, redject, approved
+	if c.Main.Run {
+		for i := 0; i < c.Main.Sum; i++ {
 
-		// TODO: переделать
-
-		if r != "" {
-			fmt.Println(r, " true", i)
-			status := c.Main.Advertiser
-			if status == "rand" {
-				option := []string{"false", "trash", "redject", "approved"}
-				status = option[rand.Intn(len(option))]
+			r, err := request(c)
+			if err != nil {
+				log.Fatal(err)
 			}
-			switch status {
-			case "false":
-				fmt.Println("false")
-			case "trash":
-				trash.Trash(r, c)
-			case "approved":
-				approved.Approve(r, c)
-			case "redject":
-				redject.Redject(r, c)
-			}
-		} else {
-			i--
-			fmt.Println(r, " false", i)
-		}
+			// fmt.Println(r)
+			// false, rand, trash, redject, approved
 
+			// TODO: переделать
+
+			if r != "" {
+				fmt.Println(r, " true", i)
+				status := c.Main.Advertiser
+				if status == "rand" {
+					option := []string{"false", "trash", "redject", "approved"}
+					status = option[rand.Intn(len(option))]
+				}
+				switch status {
+				case "false":
+					fmt.Println("false")
+				case "trash":
+					trash.Trash(r, c)
+				case "approved":
+					approved.Approve(r, c)
+				case "redject":
+					redject.Redject(r, c)
+				}
+			} else {
+				i--
+				fmt.Println(r, " false", i)
+			}
+
+		}
 	}
 
 	if c.Redirect.Run {
-		redirect.Redirect(c)
+		for i := 0; i < c.Redirect.Sum; i++ {
+			redirect.Redirect(c)
+		}
+
 	}
 }
