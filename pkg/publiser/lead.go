@@ -30,6 +30,7 @@ func lead(c *models.Config) *models.Lead {
 		l.UtmMedium = "medium " + faker.Currency()
 		l.UtmSource = "source " + faker.Currency()
 		l.UtmTerm = "term " + faker.Currency()
+		l.Comment = "comment " + faker.Email()
 	}
 
 	if c.Main.Subaccaunt {

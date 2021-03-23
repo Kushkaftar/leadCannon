@@ -24,20 +24,28 @@ func Run(c *models.Config) {
 		// false, rand, trash, redject, approved
 
 		// TODO: переделать
-		status := c.Main.Advertiser
-		if status == "rand" {
-			option := []string{"false", "trash", "redject", "approved"}
-			status = option[rand.Intn(len(option))]
+
+		if r != "" {
+			fmt.Println(r, " true", i)
+			status := c.Main.Advertiser
+			if status == "rand" {
+				option := []string{"false", "trash", "redject", "approved"}
+				status = option[rand.Intn(len(option))]
+			}
+			switch status {
+			case "false":
+				fmt.Println("false")
+			case "trash":
+				trash.Trash(r, c)
+			case "approved":
+				approved.Approve(r, c)
+			case "redject":
+				redject.Redject(r, c)
+			}
+		} else {
+			i--
+			fmt.Println(r, " false", i)
 		}
-		switch status {
-		case "false":
-			fmt.Println("false")
-		case "trash":
-			trash.Trash(r, c)
-		case "approved":
-			approved.Approve(r, c)
-		case "redject":
-			redject.Redject(r, c)
-		}
+
 	}
 }
